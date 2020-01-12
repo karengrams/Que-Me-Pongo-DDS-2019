@@ -1,0 +1,64 @@
+<html>
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="/inicioSesionStyle.css" media="screen" /> -->
+</head>
+<body>
+
+{{#partial "contenido" }}
+
+	<form class="calificarSugerencias" action='/sugerencias/aceptadas/{{coord}}/calificar' method="POST">
+
+	<div> <h1>Calificar sugerencia</h1> </div>
+	
+	<div><h3>Categorias</h3></div>
+		
+	<div class="container">
+	  <div class="row">
+		<div class="col">
+		<h5>Superior</h5>
+			<select name="Superior" class ="form-control">
+				<option value="BIEN" required> Bien</option>
+				<option value="FRIO" required> Frio</option>
+				<option value="CALOR" required> Calor</option>
+			</select>
+		</div>
+		
+		<div class="col">
+		<h5>Calzado</h5>
+			<select name="Calzado" class ="form-control">
+				<option value="BIEN" required> Bien</option>
+				<option value="FRIO" required> Frio</option>
+				<option value="CALOR" required> Calor</option>
+			</select>
+		</div>
+		
+		<div class="w-100"></div>
+		
+		<div class="col">
+		<h5>Inferior</h5>
+			<select name="Inferior" class ="form-control">
+				<option value="BIEN" required> Bien</option>
+				<option value="FRIO" required> Frio</option>
+				<option value="CALOR" required> Calor</option>
+			</select>
+		</div>
+		
+		<div class="col">
+		<h5>Accesorio</h5>
+			<select name="Accesorio" class ="form-control">
+				<option value="BIEN" required> Bien</option>
+				<option value="FRIO" required> Frio</option>
+				<option value="CALOR" required> Calor</option>
+			</select>
+		</div>
+	  </div>
+	</div>
+	
+	<div><button class="btn btn-primary">Calificar</button></div>
+
+{{/partial}}
+
+{{> layout.hbs}}
+
+</body>
+</html>

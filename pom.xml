@@ -1,0 +1,202 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dds-jm</groupId>
+	<artifactId>TrabajoPractico</artifactId>
+	
+	<version>0.0.1-SNAPSHOT</version>
+	
+	<properties>
+		<junit.version>4.12</junit.version>
+		<jackson.version>2.7.4</jackson.version>
+	</properties>
+	
+	<repositories>
+   		 <repository>
+      		<id>maven.uqbar.org-releases</id>
+      		<name>maven.uqbar.org-releases</name>
+      		<url>http://maven.uqbar.org/releases</url>
+    	</repository>
+   		
+   		<repository>
+     		<snapshots />
+      		<id>maven.uqbar.org-snapshots</id>
+     		<name>maven.uqbar.org-snapshots</name>
+      		<url>http://maven.uqbar.org/snapshots</url>
+    	</repository>
+  	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+          	  <artifactId>maven-assembly-plugin</artifactId>
+         	   <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <descriptorRefs>
+                    <!-- This tells Maven to include all dependencies -->
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                    <manifest>
+                        <mainClass>server.Server</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+			<plugin>
+    <groupId>com.heroku.sdk</groupId>
+    <artifactId>heroku-maven-plugin</artifactId>
+    <configuration>
+        <jdkVersion>1.8</jdkVersion>
+        <!-- Use your own application name -->
+        <appName>quemepongo-grupo8</appName> 
+        <processTypes>
+            <!-- Tell Heroku how to launch your application -->
+            <!-- You might have to remove the ./ in front   -->
+            <web>java -jar ./target/TrabajoPractico-0.0.1-SNAPSHOT-jar-with-dependencies.jar</web>
+        </processTypes>
+    </configuration>
+</plugin>
+			
+			
+			
+		</plugins>
+	</build>
+	
+	<!-- Dependencias -->
+	<dependencies>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.23.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>retrofit</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>converter-gson</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.0.1-jre</version>
+		</dependency>
+				
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.8</version>
+        </dependency>
+
+        <dependency>
+      		<groupId>org.uqbar-project</groupId>
+      		<artifactId>arena-jface</artifactId>
+      		<version>3.6.3</version>
+    	</dependency>
+    	
+		<dependency>
+            <groupId>org.uqbar-project</groupId>
+            <artifactId>jpa-java8-extras</artifactId>
+            <version>1.0-alpha-1</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version> 
+            </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        
+    			<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.21</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.sparkjava</groupId>
+			<artifactId>spark-core</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sparkjava</groupId>
+			<artifactId>spark-template-handlebars</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sparkjava</groupId>
+			<artifactId>spark-debug-tools</artifactId>
+			<version>0.5</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.github.jknack</groupId>
+			<artifactId>handlebars-helpers</artifactId>
+			<version>4.0.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.jknack</groupId>
+			<artifactId>handlebars-humanize</artifactId>
+			<version>4.0.6</version>
+		</dependency>
+	</dependencies>
+
+</project>

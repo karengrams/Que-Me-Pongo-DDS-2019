@@ -1,0 +1,105 @@
+<html>
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="/inicioSesionStyle.css" media="screen" /> -->
+</head>
+<body>
+
+{{#partial "contenido" }}
+
+	<form class="clothes-form" method='post' action='/eventos/nuevo/horarios'>
+	
+	<div class="form-group">
+		<h3>Elegir horarios</h3>
+	</div>
+
+	{{#if esAnual}}
+		<div class="container">
+	  <div class="row">
+		<div class="col-sm">
+		  <h5>Ingrese mes</h5>
+			<input name='mes' class="form-control" value='{{mes}}' type="number" min = "1" max = "12" required>
+		</div>
+		<div class="col-sm">
+		  <h5>Ingrese dia</h5>
+			<input name='dia' class="form-control" value='{{dia}}' type="number" min = "1" max = "31" required>
+		</div>
+		
+	  </div>
+	</div>
+	{{/if}}
+
+
+
+	{{#if esDiaria}}
+		<div class="container">
+	  <div class="row">
+		<div class="col-sm">
+		  <div class="form-group">
+			<h5>Ingrese hora</h5>
+			<input name='hora' class="form-control" value='{{hora}}' type="number" min = "0" max = "23" required>
+		</div>
+		</div>
+	  </div>
+	</div>
+	{{/if}}
+
+
+
+	{{#if esMensual}}
+	<div class="container">
+	  <div class="row">
+		<div class="col-sm">
+		 <div class="form-group">
+			<h5>Ingrese dia</h5>
+			<input name='dia' class="form-control" value='{{dia}}' type="number" min = "1" max = "31" required>
+		</div>
+		</div>
+	  </div>
+	</div>
+	{{/if}}
+
+
+	{{#if esSemanal}}
+	<div class="container">
+	  <div class="row">
+		<div class="col-sm">
+		  <div class="form-group">
+			<h5>Ingrese dia de la semana (numero) arrancando lunes = 1, etc</h5>
+			<input name='dia' class="form-control" value='{{dia}}' type="number" min = "1" max = "7" required>
+		</div>
+		</div>
+	  </div>
+	</div>
+	{{/if}}
+
+
+	{{#if esUnicaVez}}
+	<div class="container">
+	  <div class="row">
+		<div class="col-sm">
+		  <h5>Ingrese anio</h5>
+			<input name='anio' class="form-control" value='{{anio}}' type="number" min = "2019" required>
+		</div>
+		<div class="col-sm">
+		  <h5>Ingrese mes</h5>
+			<input name='mes' class="form-control" value='{{mes}}' type="number" min = "1" max = "12" required>
+		</div>
+		<div class="col-sm">
+		  <h5>Ingrese dia</h5>
+			<input name='dia' class="form-control" value='{{dia}}' type="number" min = "1" max = "31" required>
+		</div>
+	  </div>
+	</div>
+	{{/if}}	
+
+
+	<button type='submit' class="btn btn-primary">Finalizar</button>
+
+	</form>
+
+{{/partial}}
+
+{{> layout.hbs}}
+
+</body>
+</html>

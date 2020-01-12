@@ -1,0 +1,66 @@
+{{#partial "contenido"}}
+
+{{#if haySugerenciaAceptada}}
+	
+<form class="mostrarSugerencias" action="/sugerencias/aceptadas" method="POST">
+
+<h1>Sugerencias</h1>
+
+{{#each sugerencias}}
+	<div class="row">
+	<div class="row row-cols-2 row-cols-md-2">
+		
+		{{#each this.atuendo}}
+		<div class="col mb-4">
+		
+		<div class="card border-primary mb-3">
+
+			<div class="card-body">
+			<h5 class="card-title">Atuendo  {{@index}}</h5>
+			
+			{{this.tipo}} cuyo principal color es el {{this.colorPrimario}} 
+			
+			{{#if this.colorSecundario}}
+				y su color secundario es {{this.colorSecundario}}, 
+			{{/if}}
+			
+			y la tela es de  {{this.tela}}
+			
+			<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+			</div>
+			
+		</div>
+			
+		</div>
+		{{/each}}
+			
+			
+		<div class="card border-secondary mb-3">
+
+			<div class="card-body">
+			<h5 class="card-title">Evento</h5>
+			<p class="card-text">Descripcion: {{this.evento.descripcion}}</p>
+			<!-- <p class="card-text">Estado: {{this.estado}}</p> -->
+			</div>
+			
+		</div>
+	
+	
+	</div>
+	</div>
+	
+	<div class="row">
+	<button name='nroSugerencia' type='submit' class="btn btn-primary" value='{{@index}}'>Calificar</button>
+	</div>
+
+{{/each}}
+	
+</form>
+	
+{{else}}
+	<h2> No hay sugerencias aceptadas </h2>
+{{/if}}
+
+{{/partial}}
+
+{{>layout.hbs}}

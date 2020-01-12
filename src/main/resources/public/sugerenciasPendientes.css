@@ -1,0 +1,34 @@
+div#body{
+	margin:auto;
+	margin-top:0px;
+}
+div#sugerencia{
+	float:left;
+	width: 360px;
+}
+h2{
+	text-align:center;
+}
+.boton{
+	margin-down:60px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.boton button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #6dab4b;
+  width: 10%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-down:60px;
+}
+.boton button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}

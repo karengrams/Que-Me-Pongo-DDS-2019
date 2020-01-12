@@ -1,0 +1,12 @@
+{{#partial "contenido"}}
+	  <div>
+	    — Seleccione el guardarropas donde quiere almacenar:
+	    <select name="guardarropa">
+				{{#each guardarropas}}
+	      <option value="{{id}}">{{id}}</option>
+				{{/each}}
+	     </select>
+	   </div>
+
+{{/partial}}
+{{>layout.hbs}}

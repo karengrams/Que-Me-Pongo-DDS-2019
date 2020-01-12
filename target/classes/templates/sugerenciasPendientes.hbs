@@ -1,0 +1,32 @@
+{{#partial "otherHead"}}
+	<link rel="stylesheet" type="text/css" href="/login.css" media="screen" />
+{{/partial}}
+
+{{#partial "contenido"}}
+ </div>
+	<div id = "body">
+		<form method='post' action='/eventos/{{Evento}}/sugerencias/pendientes'>
+		<div class="row">
+		<div class="card-deck">
+		{{#each sugerencias}}
+			<div class="col">
+				<div class="card">
+  					<div class="card-body">
+    					<h5 class="card-title">Sugerencia </h5>
+    						<p class="card-text">La sugerencia consta de: </p>
+    						{{#each this.atuendo}}
+    						<p class="card-text">
+    						     {{this.tipo}} cuyo principal color es el {{this.colorPrimario}} y la tela es de  {{this.tela}}
+    						     </p>
+    						{{/each}}
+							<button type="submit" class="btn btn-primary"  name='sugerencia' value='{{@index}}'>Confirmar</button>
+					</div>
+				</div>
+			</div>
+		{{/each}}
+		</div>
+		</div>
+		</form>
+	</div>
+{{/partial}}
+{{>layout.hbs}}

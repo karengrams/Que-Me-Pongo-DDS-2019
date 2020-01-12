@@ -1,0 +1,31 @@
+<html>
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="/inicioSesionStyle.css" media="screen" /> -->
+</head>
+<body>
+
+{{#partial "contenido" }}
+
+	<form class="clothes-form" method='post' action='/eventos/nuevo/verificacion'>
+	
+	{{#unless fechaIncorrecta}}
+	<div class="alert alert-success" role="alert">
+	  Se ha ingresado el evento correctamente
+	</div>
+	{{else}}
+	<div class="alert alert-danger" role="alert">
+	  <p>Error al cargar el evento</p>
+	  <p>Por favor intente nuevamente</p>
+	</div>
+	{{/unless}}
+	
+	<button type='submit' class="btn btn-primary">Volver</button>
+	
+	</form>
+	
+{{/partial}}
+
+{{> layout.hbs}}
+
+</body>
+</html>

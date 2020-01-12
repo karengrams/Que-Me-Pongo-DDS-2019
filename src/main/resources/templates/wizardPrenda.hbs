@@ -1,0 +1,214 @@
+{{#partial "otherHead"}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Sign Up Form</title>
+
+    
+    <link rel="stylesheet" href="/wizardPrenda/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    
+    <link rel="stylesheet" href="/wizardPrenda/css/style.css">
+{{/partial}}
+{{#partial "contenido"}}
+</div><!-- OJO esto esta para corregir un bug visual-->
+    <div class="main">
+
+        <div class="container">
+            <h2>Carga de datos para prenda</h2>
+            <form method="POST" id="signup-form" class="signup-form" action="/prendas/cargaDatos">
+                <h3>
+                    Datos basicos
+                </h3>
+                <fieldset>
+                    <div class="form-row">
+                        <div class="form-file">
+                            <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                            <label for="your_picture">
+                                <figure>
+                                    <img src="/wizardPrenda/images/your-picture.png" alt="" class="your_picture_image">
+                                </figure>
+                                <span class="file-button">choose picture</span>
+                            </label>
+                        </div>
+                        <div class="form-group-flex">
+                            <div class="form-group">
+									Tipo de prenda
+                                    <select name="tipoPrenda" class="required" id="a">
+									  <option value="">Sin seleccionar</option>
+									   <option value="Remera">Remera</option>
+									   <option value="RemeraMangaCorta">Remera Manga Corta</option>
+									   <option value="RemeraMangaLarga">Remera Manga Larga</option>
+									   <option value="CamisaMangaCorta">Camisa Manga Corta</option>
+									   <option value="CamisaMangaLarga">Camisa Manga Larga</option>
+									   <option value="Pantalon">Pantalon</option>
+									   <option value="Short">Short</option>
+									   <option value="PolleraCorta">PolleraCorta</option>
+									   <option value="PolleraLarga">PolleraLarga</option>
+									   <option value="Bermuda">Bermuda</option>
+									   <option value="Calza">Calza</option>
+									   <option value="Jardinero">Jardinero</option>
+									   <option value="Zapatos">Zapatos</option>
+									   <option value="Ojotas">Ojotas</option>
+									   <option value="Botas">Botas</option>
+									   <option value="Zapatillas">Zapatillas</option>
+									   <option value="Borcegos">Borcegos</option>
+									   <option value="Gorro">Gorro</option>
+									   <option value="Gorra">Gorra</option>
+									   <option value="Sombrero">Sombrero</option>
+									   <option value="Tapado">Tapado</option>
+									   <option value="Buzo">Buzo</option>
+									   <option value="Campera">Campera</option>
+									 </select>
+                            </div>
+                            <div class="form-group">
+									Color primario
+									<select name="colorPrimario"  class="required" id="a">
+        <option value="">Sin seleccionar</option>
+        <option value=Rojo>Rojo</option>
+        <option value=Amarillo>Amarillo</option>
+        <option value=Verde>Verde</option>
+        <option value=Naranja>Naranja</option>
+        <option value=Azul>Azul</option>
+        <option value=Violeta>Violeta</option>
+        <option value=Rosa>Rosa</option>
+        <option value=Lila>Lila</option>
+        <option value=Fucsia>Fucsia</option>
+        <option value=Mostaza>Mostaza</option>
+        <option value=Turquesa>Turquesa</option>
+        <option value=Ocre>Ocre</option>
+        <option value=Magenta>Magenta</option>
+        <option value=Gris>Gris</option>
+        <option value=Negro>Negro</option>
+        <option value=Blanco>Blanco</option>
+        <option value=Beige>Beige</option>
+        <option value=Salmon>Salmon</option>
+        <option value=Granate>Granate</option>
+        <option value=Lavanda>Lavanda</option>
+        <option value=Malva>Malva</option>
+        <option value=Purpura>Purpura</option>
+        <option value=Ciruela>Ciruela</option>
+        <option value=Melocoton>Melocoton</option>
+      </select>                            </div>
+                            <div class="form-group">
+									Color secundario
+									<select name="colorSecundario">
+         <option value="Ninguno">Sin seleccionar</option>
+         <option value="SinColor">Sin color</option>
+         <option value=Rojo>Rojo</option>
+         <option value=Amarillo>Amarillo</option>
+         <option value=Verde>Verde</option>
+         <option value=Naranja>Naranja</option>
+         <option value=Azul>Azul</option>
+         <option value=Violeta>Violeta</option>
+         <option value=Rosa>Rosa</option>
+         <option value=Lila>Lila</option>
+         <option value=Fucsia>Fucsia</option>
+         <option value=Mostaza>Mostaza</option>
+         <option value=Turquesa>Turquesa</option>
+         <option value=Ocre>Ocre</option>
+         <option value=Magenta>Magenta</option>
+         <option value=Gris>Gris</option>
+         <option value=Negro>Negro</option>
+         <option value=Blanco>Blanco</option>
+         <option value=Beige>Beige</option>
+         <option value=Salmon>Salmon</option>
+         <option value=Granate>Granate</option>
+         <option value=Lavanda>Lavanda</option>
+         <option value=Malva>Malva</option>
+         <option value=Purpura>Purpura</option>
+         <option value=Ciruela>Ciruela</option>
+         <option value=Melocoton>Melocoton</option>
+       </select>                            
+       </div>
+                        </div>
+                        
+                    </div>
+                    
+                </fieldset>
+
+                <h3>
+                    Material
+                </h3>
+                                <fieldset>
+                    <div class="form-row">
+                        <div class="form-file">
+                            <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple disabled/>
+                            <label for="your_picture">
+                                <figure>
+                                    <img src="images/una-imagen.png" alt="" class="your_picture_image">
+                                </figure>
+                                <span class="file-button">choose picture</span>
+                            </label>
+                        </div>
+                        <div class="form-group-flex">
+                            <div class="form-group">
+							— Seleccione tipo de material
+							<select name="tela">
+							  <option value="">Sin seleccionar</option>
+							  <option value="Algodon">Algodon,</option>
+								<option value="Lycra">Lycra</option>
+								<option value="Lino">Lino</option>
+								<option value="Franela">Franela</option>
+								<option value="Lana">Lana</option>
+								<option value="Cuero">Cuero</option>
+								<option value="Microfibra">Microfibra</option>
+								<option value="Seda">Seda</option>
+								<option value="Jean">Jean</option>
+								<option value="Chiffon">Chiffon</option>
+								<option value="Spandex">Spandex</option>
+								<option value="Saten">Saten</option>
+								<option value="Lanilla">Lanilla</option>
+								<option value="Poliester">Poliester</option>
+								<option value="Gamuza">Gamuza</option>
+								<option value="Polar">Polar</option>
+								<option value="Mezclilla">Mezclilla</option>
+								<option value="Nylon">Nylon</option>
+								<option value="Caucho">Caucho</option>
+								<option value="Modal">Modal</option>
+								<option value="Lona">Lona</option>
+								<option value="Rayon">Rayon</option>
+								<option value="Gabardina">Gabardina</option>
+							 </select>
+                            </div>
+                            <div class="form-group">
+									— Ingrese su nivel de frio:
+									<input type="text" placeholder="Nivel de frio" name="nivelAbrigo"/>
+									 </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+
+                <h3>
+                    Guardarropa
+                </h3>
+                <fieldset>
+                        <div class="form-group">
+                           	    <select name="guardarropaSel">
+									{{#each guardarropas}}
+		      						<option value="{{nombre}}">{{nombre}}</option>
+									{{/each}}
+	     						</select>
+                            <span class="select-icon"></span>
+            
+                        </div>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="/wizardPrenda/vendor/jquery/jquery.min.js"></script>
+    <script src="/wizardPrenda/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/wizardPrenda/vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="/wizardPrenda/vendor/jquery-steps/jquery.steps.min.js"></script>
+    <script src="/wizardPrenda/js/main.js"></script>
+    <div class="container"> <!-- OJO esto esta para corregir un bug visual-->
+   {{/partial}}
+   {{>layout.hbs}}

@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/inicioSesionStyle.css" media="screen" />
+</head>
+<body>
+
+{{#partial "contenido"}}
+
+<h1> Step 2 </h1>
+
+<div class="story-page">
+  <div>
+   — Tipo: {{tipoPrenda}}
+  </div>
+  <div>
+  — Color primario: {{colorPrimario}}
+  </div>
+  <div>
+  — Color Secundario: {{colorSecundario}}
+  </div>
+</div>
+
+<form class="profile-form" action="/prendas/step-2" method="POST">
+
+  <div>
+    — Seleccione tipo de material
+    <select name="tela">
+      <option value="Ninguno">Sin seleccionar</option>
+      <option value="Algodon">Algodon,</option>
+  		<option value="Lycra">Lycra</option>
+  		<option value="Lino">Lino</option>
+  		<option value="Franela">Franela</option>
+  		<option value="Lana">Lana</option>
+  		<option value="Cuero">Cuero</option>
+  		<option value="Microfibra">Microfibra</option>
+  		<option value="Seda">Seda</option>
+  		<option value="Jean">Jean</option>
+  		<option value="Chiffon">Chiffon</option>
+  		<option value="Spandex">Spandex</option>
+  		<option value="Saten">Saten</option>
+  		<option value="Lanilla">Lanilla</option>
+  		<option value="Poliester">Poliester</option>
+  		<option value="Gamuza">Gamuza</option>
+  		<option value="Polar">Polar</option>
+  		<option value="Mezclilla">Mezclilla</option>
+  		<option value="Nylon">Nylon</option>
+  		<option value="Caucho">Caucho</option>
+  		<option value="Modal">Modal</option>
+  		<option value="Lona">Lona</option>
+  		<option value="Rayon">Rayon</option>
+  		<option value="Gabardina">Gabardina</option>
+     </select>
+   </div>
+
+  <div>
+    — Ingrese su nivel de frio:
+  <input type="text" placeholder="Nivel de frio" name="nivelAbrigo"/>
+    <button>Siguiente</button>
+  </div>
+</form>
+{{/partial}}
+{{>layout.hbs}}
+</body>
+</html>

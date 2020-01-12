@@ -1,0 +1,23 @@
+{{#partial "otherHead"}}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/eleccionGuardarropa.css">
+{{/partial}}
+
+{{#partial "contenido"}}
+<div class="container">
+<h2>Guardarropas disponibles:</h2>
+{{#each guardarropas}}
+
+	<div class="list-group">
+	<form action="/prendas/eleccionGuardarropa" method="POST">
+			<input name="nroGuardarropa" type="submit" value={{this.nombre}} class="list-group-item list-group-item-action" />
+	</form>
+
+	</div>
+{{/each}}
+</div>
+
+
+
+{{/partial}}
+{{>layout.hbs}}

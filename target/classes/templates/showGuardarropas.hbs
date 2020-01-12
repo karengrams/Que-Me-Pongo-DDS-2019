@@ -1,0 +1,13 @@
+{{#each guardarropas}}
+<h2>Guardarropa nro {{id}} </h2>
+{{#each this.prendas}}
+  <h3> Prenda </h3>
+  <ul>
+    <li>Color primario: {{this.colorPrimario}}</li>
+    <li>Color secundario: {{this.colorSecundario}}</li>
+    <li>Tipo: {{this.tipo}}</li>
+    <li>Tela: {{this.tela}}</li>
+  </ul>
+
+{{/each}}
+{{/each}}

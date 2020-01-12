@@ -1,0 +1,38 @@
+{{#partial "otherHead"}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="/wizardPrenda/css/style.css">
+{{/partial}}
+
+{{#partial "contenido"}}
+
+{{#each guardarropas}}
+<div>
+    <h2>{{this.nombre}}</h2>
+<div>
+
+<div class="row">
+{{#each prendas}}
+	<div class="col-4">
+		<div class="card">
+			<h5 class="card-title">{{this.tipo}}</h5>
+			<img src="/prenda.jpg" class="card-img-top" alt="...">
+			
+			 <p class="card-text">
+		    	  <ul>
+				    <li>Color primario: {{this.colorPrimario}}</li>
+				    <li>Color secundario: {{this.colorSecundario}}</li>
+				    <li>Tela: {{this.tela}}</li>
+				  </ul>
+		    </p>
+		</div>
+	</div>
+{{/each}}
+</div>
+
+{{/each}}
+  {{/partial}}
+{{>layout.hbs}}

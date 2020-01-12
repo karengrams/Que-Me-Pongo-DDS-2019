@@ -1,0 +1,169 @@
+{{#partial "otherHead"}}
+<link rel="stylesheet" type="text/css" href="/login.css" media="screen" />
+{{/partial}}
+
+{{#partial "contenido"}}
+<html>
+</div>
+  <h1>Creacion de prenda</h1>
+<div>
+  — Seleccione el guardarropas donde quiere almacenar:
+  <select name="guardarropa">
+    <option value="" selected disabled hidden>Sin seleccionar</option>
+    {{#each guardarropas}}
+    <option value="{{id}}">{{id}}</option>
+    {{/each}}
+   </select>
+ </div>
+
+<div>
+    — Seleccione un tipo de prenda:
+    <select name="tipoPrenda" id="tipoPrenda" onchange="get_clothe_type()">
+      <option value="" selected disabled hidden>Sin seleccionar</option>
+       <option value="Remera">Remera</option>
+       <option value="RemeraMangaCorta">Remera manga corta</option>
+       <option value="RemeraMangaLarga">Remera manga larga</option>
+       <option value="CamisaMangaCorta">Camisa manga corta</option>
+       <option value="CamisaMangaLarga">Camisa manga larga</option>
+       <option value="Pantalon">Pantalon</option>
+       <option value="Short">Short</option>
+       <option value="PolleraCorta">Pollera corta</option>
+       <option value="PolleraLarga">Pollera larga</option>
+       <option value="Bermuda">Bermuda</option>
+       <option value="Calza">Calza</option>
+       <option value="Jardinero">Jardinero</option>
+       <option value="Zapatos">Zapatos</option>
+       <option value="Ojotas">Ojotas</option>
+       <option value="Botas">Botas</option>
+       <option value="Zapatillas">Zapatillas</option>
+       <option value="Borcegos">Borcegos</option>
+       <option value="Gorro">Gorro</option>
+       <option value="Gorra">Gorra</option>
+       <option value="Sombrero">Sombrero</option>
+       <option value="Tapado">Tapado</option>
+       <option value="Buzo">Buzo</option>
+       <option value="Campera">Campera</option>
+     </select>
+</div>
+
+<div>
+  — Seleccione un color primario:
+  <select name="colorPrimario" required>
+    <option value="" selected disabled hidden>Sin seleccionar</option>
+     <option value=Rojo>Rojo</option>
+     <option value=Amarillo>Amarillo</option>
+     <option value=Verde>Verde</option>
+     <option value=Naranja>Naranja</option>
+     <option value=Azul>Azul</option>
+     <option value=Violeta>Violeta</option>
+     <option value=Rosa>Rosa</option>
+     <option value=Lila>Lila</option>
+     <option value=Fucsia>Fucsia</option>
+     <option value=Mostaza>Mostaza</option>
+     <option value=Turquesa>Turquesa</option>
+     <option value=Ocre>Ocre</option>
+     <option value=Magenta>Magenta</option>
+     <option value=Gris>Gris</option>
+     <option value=Negro>Negro</option>
+     <option value=Blanco>Blanco</option>
+     <option value=Beige>Beige</option>
+     <option value=Salmon>Salmon</option>
+     <option value=Granate>Granate</option>
+     <option value=Lavanda>Lavanda</option>
+     <option value=Malva>Malva</option>
+     <option value=Purpura>Purpura</option>
+     <option value=Ciruela>Ciruela</option>
+     <option value=Melocoton>Melocoton</option>
+   </select>
+ </div>
+
+ <div>
+   — Seleccione un color secundario:
+   <select name="colorSecundario">
+     <option value="" selected disabled hidden>Sin seleccionar</option>
+      <option value=Rojo>Rojo</option>
+      <option value=Amarillo>Amarillo</option>
+      <option value=Verde>Verde</option>
+      <option value=Naranja>Naranja</option>
+      <option value=Azul>Azul</option>
+      <option value=Violeta>Violeta</option>
+      <option value=Rosa>Rosa</option>
+      <option value=Lila>Lila</option>
+      <option value=Fucsia>Fucsia</option>
+      <option value=Mostaza>Mostaza</option>
+      <option value=Turquesa>Turquesa</option>
+      <option value=Ocre>Ocre</option>
+      <option value=Magenta>Magenta</option>
+      <option value=Gris>Gris</option>
+      <option value=Negro>Negro</option>
+      <option value=Blanco>Blanco</option>
+      <option value=Beige>Beige</option>
+      <option value=Salmon>Salmon</option>
+      <option value=Granate>Granate</option>
+      <option value=Lavanda>Lavanda</option>
+      <option value=Malva>Malva</option>
+      <option value=Purpura>Purpura</option>
+      <option value=Ciruela>Ciruela</option>
+      <option value=Melocoton>Melocoton</option>
+    </select>
+  </div>
+
+  <div>
+    — Seleccione tipo de material
+    <select name="tela">
+      <option value="" selected disabled hidden>Sin seleccionar</option>
+      <option value="Algodon">Algodon</option>
+  		<option value="Lycra">Lycra</option>
+  		<option value="Lino">Lino</option>
+  		<option value="Franela">Franela</option>
+  		<option value="Lana">Lana</option>
+  		<option value="Cuero">Cuero</option>
+  		<option value="Microfibra">Microfibra</option>
+  		<option value="Seda">Seda</option>
+  		<option value="Jean">Jean</option>
+  		<option value="Chiffon">Chiffon</option>
+  		<option value="Spandex">Spandex</option>
+  		<option value="Saten">Saten</option>
+  		<option value="Lanilla">Lanilla</option>
+  		<option value="Poliester">Poliester</option>
+  		<option value="Gamuza">Gamuza</option>
+  		<option value="Polar">Polar</option>
+  		<option value="Mezclilla">Mezclilla</option>
+  		<option value="Nylon">Nylon</option>
+  		<option value="Caucho">Caucho</option>
+  		<option value="Modal">Modal</option>
+  		<option value="Lona">Lona</option>
+  		<option value="Rayon">Rayon</option>
+  		<option value="Gabardina">Gabardina</option>
+     </select>
+   </div>
+
+   <p id="demo"></p>
+
+{{/partial}}
+{{>layout.hbs}}
+
+
+<script>
+
+// document.getElementById("tipoPrenda").addEventListener("click", get_clothe_type());
+
+function get_clothe_type() {
+
+  var selectedOption = document.getElementById("tipoPrenda").value;
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange=function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+
+  xhttp.open("POST", "/prenda/nueva/caca?tipoPrenda=" + selectedOption, true);
+  xhttp.send();
+  document.getElementById("demo").innerHTML = selectedOption;
+}
+
+</script>
+
+</html>

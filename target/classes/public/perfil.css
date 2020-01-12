@@ -1,0 +1,131 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+  background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+body {
+  background: 
+    radial-gradient(black 3px, transparent 4px),
+    radial-gradient(black 3px, transparent 4px),
+    linear-gradient(#8BFEA8 4px, transparent 0),
+    linear-gradient(45deg, transparent 74px, transparent 75px, #a4a4a4 75px, #a4a4a4 76px, transparent 77px, transparent 109px),
+    linear-gradient(-45deg, transparent 75px, transparent 76px, #a4a4a4 76px, #a4a4a4 77px, transparent 78px, transparent 109px),
+  #8BFEA8;
+  background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+  background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+}
+h2 {
+  cursor: default;
+  position: relative;
+  top: 30px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  margin: auto;
+  display: block;
+  
+  -webkit-animation: bounce .3s ease infinite alternate;
+  
+  font-family: 'Erica One', cursive;
+  font-size: 80px;
+  color: #000;
+  text-align: center;
+  line-height: 100px;
+  text-shadow: 0 1px 0 #CCC,
+               0 2px 0 #CCC,
+               0 3px 0 #CCC,
+               0 4px 0 #CCC,
+               0 5px 0 #CCC,
+               0 6px 0 transparent,
+               0 7px 0 transparent,
+               0 8px 0 transparent,
+               0 9px 0 transparent,
+               0 10px 10px rgba(0, 0, 0, .6);
+}

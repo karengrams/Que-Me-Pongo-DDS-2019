@@ -1,0 +1,44 @@
+
+{{#partial "contenido"}}
+	<div class=calendario>
+		<h1>¡Calendario! 📅</h1>
+	</div>
+	</div>
+	<div>
+		<form action="/calendar/busqueda" method="POST">
+		<div class="col-6">
+			<div class="input-group input-group-lg">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="inputGroup-sizing-lg">Buscar evento por fecha</span>
+			  </div>
+			  <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="fechaSolicitada">
+			<input type="submit" class="btn btn-primary">
+			</div>
+			
+		</div>
+		</form>
+	</div>
+	<div class="container-fluid">
+		<h2>Eventos proximos </h2>
+		<ul class="list-group">
+		{{#each listaEventos}}
+		 <div class="row">
+			  <div class="col-5">
+			    <div class="card border-dark mb-3">
+			      <div class="card-body">
+			      	<div class="col">
+				        <h5 class="card-title">{{this.descripcion}}</h5>
+				        <p class="card-text">{this.frecuencia.fecha}}</p>
+				    </div>
+				    <div class="col">
+			        	<a href="#" class="btn btn-primary">Ver sugerencia</a>
+			      	</div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			{{/each}}
+		</ul>
+
+{{/partial}}
+{{>layout.hbs}}

@@ -1,0 +1,72 @@
+{{#partial "otherHead"}}
+<link rel="stylesheet" type="text/css" href="/login.css" media="screen" />
+{{/partial}}
+
+{{#partial "contenido"}}
+	<div class=calendario>
+		<h1>¡Calendario! 📅</h1>
+	</div>
+	</div>
+	<div>
+		<form class="profile-form" action="/eventos" method="GET">
+		<div class="col-6">
+			<div class="input-group input-group-lg">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="inputGroup-sizing-lg">Buscar evento por fecha</span>
+			  </div>
+			  <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name='fecha' value='{{fecha}}'>
+			<input type="submit" class="btn btn-primary">
+			</div>
+			
+		</div>
+		</form>
+	</div>
+	
+	
+	
+	<div class="container-fluid">
+		<h2>Eventos proximos </h2>
+		<ul class="list-group">
+		{{#each eventosPendientes}}
+		 <div class="row">
+			<div class="col-5">
+				<div class="card border-dark mb-3">
+					<div class="card-header">{{this.fechaweb}}</div>
+			    	<div class="card-body">
+			      		<div class="col">
+				        	<h5 class="card-title">{{this.descripcion}}</h5>
+				    	</div>
+				    	<div class="col">
+				    		<form method='post' action='/eventos'>
+			        			<button type="submit" class="btn btn-primary" name='eventoNum' value='{{@index}}'>Sugerencia</a>
+			        		</form>
+			      		</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			{{/each}}
+		{{#each eventosNoPendientes}}
+		 <div class="row">
+			<div class="col-5">
+				<div class="card border-dark mb-3">
+					<div class="card-header">{{this.fechaweb}}</div>
+			    	<div class="card-body">
+			      		<div class="col">
+				        	<h5 class="card-title">{{this.descripcion}}</h5>
+				    	</div>
+			      	</div>
+			    </div>
+			  </div>
+			</div>
+			{{/each}}
+			
+		{{#if noHayEventos}}
+    		<h5>No se han encontrado eventos</h5>
+    	{{/if}}
+			
+			
+		</ul>
+	</div>
+{{/partial}}
+{{>layout.hbs}}
