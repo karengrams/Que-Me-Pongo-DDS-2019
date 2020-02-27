@@ -1,0 +1,82 @@
+{{#partial "otherHead"}}
+
+{{/partial}}
+
+{{#partial "contenido"}}
+
+<html>
+<style>
+
+  .btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+  .btn-back{
+  margin-top:10px;
+  margin-right:15px;
+  }
+
+  .btn-create{
+  margin-top:10px;
+  margin-left: 15px;
+  }
+
+  div.create-btn{
+    margin-top: 40px;
+  }
+
+  .alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 170px;
+    text-align:center;
+  }
+
+  .alert.success {background-color: #4CAF50;}
+
+  }
+
+</style>
+</div>
+  <h1 align="center">Creacion de prenda</h1>
+
+  {{#if creacion_exitosa}}
+  <div class="alert success">
+    <span class="closebtn" id="closebtn"></span>
+    <strong>¡Enhorabuena!</strong> Se ha creado correctamente la prenda.
+  </div>
+  {{/if}}
+
+  {{#if error}}
+<div class="alert">
+  <span class="closebtn" id="closebtn"></span>
+  <strong>¡Error!</strong> {{msg_exception}}
+</div>
+  {{/if}}
+
+<div class="btns">
+  <div class="btn-back">
+    <form action="/perfil" class="inline">
+      <button>Volver a inicio</button>
+    </form>
+  </div>
+  <div class="btn-create">
+    <form action="/prenda/nueva" class="inline">
+      <button>Crear otra prenda</button>
+    </form>
+  </div>
+</div>
+
+{{/partial}}
+
+{{>layout.hbs}}
+Creaste bien la pregunta perri beso
+  </html>

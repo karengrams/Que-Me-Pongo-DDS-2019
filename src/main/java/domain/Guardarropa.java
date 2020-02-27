@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -15,16 +16,17 @@ public class Guardarropa extends SuperClase{
 
 	// ---------------------------- Atributos -------------------------------
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
 	@JoinColumn(name="id_Guardarropa") 
-	private Set<Prenda> prendas;
+	public Set<Prenda> prendas;
 
 	public String nombre;
+	
+	// ------------------ Getters, setters y constructores ------------------
 	public Guardarropa() {
 		prendas = new HashSet<Prenda>();
 	}
 	
-	// ------------------ Getters, setters y constructores ------------------
 	public String getNombre() {
 		return nombre;
 	}
@@ -41,9 +43,7 @@ public class Guardarropa extends SuperClase{
 	public void borrarPrendas() {
 		this.prendas = new HashSet<Prenda>();
 	}
-
-	public Set<Prenda> prendas(){return prendas;}
-
+	
 	// ------------------------------ Metodos -------------------------------
 	
 	public List<Set<Prenda>> pedirAtuendosSegun(ProveedorClima proveedor,Usuario unUser){
@@ -131,7 +131,9 @@ public class Guardarropa extends SuperClase{
 	private boolean contienePrendasDeCategoria(Set<Prenda> atuendo, Categoria unaCategoria) {
 		Set<Prenda> aux;
 		if (unaCategoria != Categoria.Inferior)
-			return atuendo.stream().anyMatch(prenda->prenda.getTipo().categoria == unaCategoria); 
+			return atuendo.stream().anyMatch(prenda->prenda.getTipo().categoria == unaCategoria) 
+					&& atuendo.stream().filter(t->t.getTipo().categoria == unaCategoria).
+					collect(Collectors.toList()).size() == 1; 
 		
 		aux = atuendo.stream().filter(prenda->prenda.getTipo().
 				categoria == unaCategoria).collect(Collectors.toSet());
@@ -143,11 +145,11 @@ public class Guardarropa extends SuperClase{
 			return 5;
 		if (temperatura < 9)
 			return 4;
-		if (temperatura < 13)
+		if (temperatura <= 13)
 			return 3;
-		if (temperatura < 17)
+		if (temperatura < 19)
 			return 2;
-		if (temperatura < 20)
+		if (temperatura < 23)
 			return 1; 
 		else
 			return -1;
@@ -173,7 +175,7 @@ public class Guardarropa extends SuperClase{
 	public int cantidadDePrendasGuardadas() {
 		return this.prendas.size();
 	}
-	public List<Prenda> listPrendas(){
-		return this.prendas.stream().collect(Collectors.toList());
+	public List<String> listPrendas(){
+		return this.getPrendas().stream().map(p->p.prenda()).collect(Collectors.toList());
 	}
 }

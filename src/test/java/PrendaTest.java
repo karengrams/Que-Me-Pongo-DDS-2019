@@ -17,35 +17,35 @@ public class PrendaTest {
 	
 	@Test (expected = MaterialNoPermitidoException.class)
 	public void noSePuedenCrearPrendasConMaterialesInconsistentes() {
-		new PrendaBuilder().conTipo(TipoPrenda.Remera).conColorPrimario(Color.Azul).conTela(Material.Cuero).crearPrenda();
+		new PrendaBuilder().conTipo(TipoPrenda.Remera).conColorPrimario(Color.azul).conTela(Material.cuero).crearPrenda();
 	}
 	
 	@Test
 	public void resultaValidoLaCreacionDePrendasSinColorSecundario(){
-		Prenda remeraRosa = new PrendaBuilder().conColorPrimario(Color.Rosa).conTipo(TipoPrenda.Remera).conTela(Material.Algodon).crearPrenda();
+		Prenda remeraRosa = new PrendaBuilder().conColorPrimario(Color.rosa).conTipo(TipoPrenda.Remera).conTela(Material.algodon).crearPrenda();
 		assertEquals(remeraRosa.getColorSecundario(),null);
 	}
 	
 	@Test (expected = TieneParametrosNulosException.class)
 	public void noSePuedeAsignarLaTelaSinSaberElTipo(){
-		new PrendaBuilder().conColorPrimario(Color.Rosa).conTela(Material.Algodon).conTipo(TipoPrenda.Remera).crearPrenda();
+		new PrendaBuilder().conColorPrimario(Color.rosa).conTela(Material.algodon).conTipo(TipoPrenda.Remera).crearPrenda();
 	}
 	@Test 
 	public void crearPrendaConAtributosNoNulos() {
-		Prenda remeraRosa = new PrendaBuilder().conColorPrimario(Color.Rosa).conTipo(TipoPrenda.Remera).conTela(Material.Algodon).crearPrenda();
+		Prenda remeraRosa = new PrendaBuilder().conColorPrimario(Color.rosa).conTipo(TipoPrenda.Remera).conTela(Material.algodon).crearPrenda();
 		assertTrue((remeraRosa.getColorPrimario()!=null) &&(remeraRosa.getTipo()!=null)&&(remeraRosa.getTela()!=null));
 	}
 	
 	@Test
 	public void crearUnaPrendaConFoto() throws NoSePuedeAbrirImagen {
 		Foto imagenDeRemeraNegra = new Foto("src/test/java/remeranegra.jpg");
-		Prenda remeraNegra = new PrendaBuilder().conColorPrimario(Color.Negro).conTipo(TipoPrenda.Remera).conTela(Material.Algodon).conFoto(imagenDeRemeraNegra).conAbrigo(0).crearPrenda();
+		Prenda remeraNegra = new PrendaBuilder().conColorPrimario(Color.negro).conTipo(TipoPrenda.Remera).conTela(Material.algodon).conFoto(imagenDeRemeraNegra).crearPrenda();
 		assertEquals(remeraNegra.getFoto(),imagenDeRemeraNegra);
 	}
 	
 
 	@Test (expected = TieneParametrosNulosException.class)
 	public void noSePodranCrearPrendasSinNivelAbrigo() {
-		new PrendaBuilder().conColorPrimario(Color.Rosa).conTela(Material.Algodon).conTipo(TipoPrenda.Remera).crearPrenda();
+		new PrendaBuilder().conColorPrimario(Color.rosa).conTela(Material.algodon).conTipo(TipoPrenda.Remera).crearPrenda();
 }
 }

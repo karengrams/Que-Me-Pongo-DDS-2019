@@ -15,21 +15,22 @@ public class UsuarioTest {
 	Usuario juan = new Usuario(TipoUsuario.PREMIUM,0,"juan","123");
 	Guardarropa armario = new Guardarropa();
 	Guardarropa otroArmario = new Guardarropa();
-	Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.Algodon).conColorPrimario(Color.Rojo).conColorSecundario(Color.Amarillo).crearPrenda();
-	Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).crearPrenda();
-	Prenda zapatillas = new PrendaBuilder().conTipo(TipoPrenda.Zapatillas).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).crearPrenda();
-	Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.Negro).conTela(Material.Algodon).crearPrenda();
-	Prenda sombrero= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.Negro).conTela(Material.Algodon).crearPrenda();
-	Prenda camisaLarga = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaLarga).conColorPrimario(Color.Blanco).conTela(Material.Saten).crearPrenda();
-	Prenda camisaDeLara = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaLarga).conColorPrimario(Color.Blanco).conTela(Material.Saten).crearPrenda();
-	Prenda ojotas = new PrendaBuilder().conTipo(TipoPrenda.Ojotas).conTela(Material.Caucho).conColorPrimario(Color.Negro).crearPrenda();
-	Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).crearPrenda();
-	Prenda pantalon = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Blanco).crearPrenda();
+	Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.algodon).conColorPrimario(Color.rojo).conColorSecundario(Color.amarillo).crearPrenda();
+	Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
+	Prenda zapatillas = new PrendaBuilder().conTipo(TipoPrenda.Zapatillas).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
+	Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.negro).conTela(Material.algodon).crearPrenda();
+	Prenda sombrero= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.negro).conTela(Material.algodon).crearPrenda();
+	Prenda camisaLarga = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaLarga).conColorPrimario(Color.blanco).conTela(Material.saten).crearPrenda();
+	Prenda camisaDeLara = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaLarga).conColorPrimario(Color.blanco).conTela(Material.saten).crearPrenda();
+	Prenda ojotas = new PrendaBuilder().conTipo(TipoPrenda.Ojotas).conTela(Material.caucho).conColorPrimario(Color.negro).crearPrenda();
+	Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+	Prenda pantalon = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.blanco).crearPrenda();
 	Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaUnicaVez(2019,2,16),"Sin descripcion");//Fecha "16-02-2019" -> Es decir, un evento finalizado
 	
 	@Before
 	public void setUp(){
 		juan.agregarGuardarropa(armario);
+		juan.setMaximoDePrendas(50);
 		juan.cargarPrenda(armario, camisaCorta);
 		juan.cargarPrenda(armario, zapatos);
 		juan.cargarPrenda(armario, gorra);
@@ -61,9 +62,9 @@ public class UsuarioTest {
 	}
 	
 	@Test
-	public void siJuanCargaUnJeanASuArmarioDeberiaTenerDoceAtuendos() {
+	public void siJuanCargaUnJeanASuArmarioDeberiaTenerOchoAtuendos() {
 		juan.cargarPrenda(armario, jean);
-		assertEquals(armario.pedirAtuendosSegun(APIDeMentiritas,juan).size(), 12);	
+		assertEquals(armario.pedirAtuendosSegun(APIDeMentiritas,juan).size(), 8);	
 	}
 	
 	@Test
@@ -93,7 +94,7 @@ public class UsuarioTest {
 		Sugeridor.getInstance().sugerirPrendasPara(lara);
 	}
 	
-	@Test(expected = SeExcedioElLimiteDeCapacidadDelGuardarropaException.class)
+	@Test(expected = MaximoDePrendasAlcanzadoException.class)
 	public void siSeIntentaCargarMasCantidadDePrendasDeLaPermitidaLanzaException(){
 		Usuario lara = new Usuario(TipoUsuario.GRATUITO,1,"juan","123");
 		lara.agregarGuardarropa(otroArmario);
@@ -106,7 +107,7 @@ public class UsuarioTest {
 		Usuario lara = new Usuario(TipoUsuario.GRATUITO,1,"juan","123");
 		lara.agregarGuardarropa(otroArmario);
 		lara.cargarPrenda(otroArmario, camisaCorta);
-		assertTrue(otroArmario.prendas().size() == 1);
+		assertTrue(otroArmario.getPrendas().size() == 1);
 	}
 	
 	@Test
@@ -141,14 +142,14 @@ public class UsuarioTest {
 		juan.cargarPrenda(armario, jean);
 		Set<Set<Prenda>> atuendosDeJuan = this.sugerirMasAceptarTodasLasSugerencias(juan, eventoConFrecuenciaUnica);
 		
-		Usuario lara = new Usuario(TipoUsuario.PREMIUM,0,"juan","123");
+		Usuario lara = new Usuario(TipoUsuario.PREMIUM,100,"juan","123");
 		
 		lara.agregarGuardarropa(armario);
 		lara.cargarPrenda(armario, pantalon);
 		lara.cargarPrenda(armario, camisaDeLara);
 		lara.cargarPrenda(armario, sombrero);
 		lara.cargarPrenda(armario, zapatillas);
-		
+
 		eventoConFrecuenciaUnica.sugerir(lara);
 		Set<Set<Prenda>> atuendosDeLara = lara.getSugerencias().stream().map(sugerencia -> sugerencia.getAtuendo()).collect(Collectors.toSet());
 

@@ -16,12 +16,12 @@
 		<div class="card border-primary mb-3">
 
 			<div class="card-body">
-			<h5 class="card-title">Atuendo  {{@index}}</h5>
+			<h5 class="card-title">Prenda  {{@index}}</h5>
 			
 			{{this.tipo}} cuyo principal color es el {{this.colorPrimario}} 
 			
 			{{#if this.colorSecundario}}
-				y su color secundario es {{this.colorSecundario}}, 
+				, su color secundario es {{this.colorSecundario}}, 
 			{{/if}}
 			
 			y la tela es de  {{this.tela}}
@@ -40,6 +40,7 @@
 			<div class="card-body">
 			<h5 class="card-title">Evento</h5>
 			<p class="card-text">Descripcion: {{this.evento.descripcion}}</p>
+			<p class="card-text">Tipo: {{this.evento.frecuencia}}</p>
 			<!-- <p class="card-text">Estado: {{this.estado}}</p> -->
 			</div>
 			
@@ -58,7 +59,9 @@
 </form>
 	
 {{else}}
-	<h2> No hay sugerencias aceptadas </h2>
+<div class="alert alert-info" role="alert">
+  <p>No hay sugerencias aceptadas</p>
+</div>
 {{/if}}
 
 {{/partial}}

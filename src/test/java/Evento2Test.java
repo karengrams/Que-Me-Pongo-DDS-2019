@@ -35,10 +35,10 @@ public class Evento2Test extends AbstractPersistenceTest implements WithGlobalEn
 	ProveedorClima APIDeMentiritas = new MockAPI(21,23,false);
 	Usuario juan = new Usuario(TipoUsuario.PREMIUM,15,"giornoGiovanna","123");
 	Guardarropa armario = new Guardarropa();
-	Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.Algodon).conColorPrimario(Color.Rojo).conColorSecundario(Color.Amarillo).crearPrenda();
-	Prenda ojotas = new PrendaBuilder().conTipo(TipoPrenda.Ojotas).conTela(Material.Caucho).conColorPrimario(Color.Negro).crearPrenda();
-	Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).crearPrenda();
-	Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).crearPrenda();
+	Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.algodon).conColorPrimario(Color.rojo).conColorSecundario(Color.amarillo).crearPrenda();
+	Prenda ojotas = new PrendaBuilder().conTipo(TipoPrenda.Ojotas).conTela(Material.caucho).conColorPrimario(Color.negro).crearPrenda();
+	Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+	Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
 	Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaUnicaVez(2019,12,5),"parcial");
 
 
@@ -69,7 +69,7 @@ public class Evento2Test extends AbstractPersistenceTest implements WithGlobalEn
 		assertTrue(
 				eventoConFrecuenciaUnica.esProximo(
 						LocalDateTime.of(
-								LocalDate.of(2019, Month.DECEMBER, 3),
+								LocalDate.of(2019, Month.DECEMBER, 4),
 								LocalTime.now())
 						)
 				);
@@ -77,7 +77,10 @@ public class Evento2Test extends AbstractPersistenceTest implements WithGlobalEn
 	@Test
 	public void JobdaSugerenciascuandoAcercaElEvento() {
 		juan.agendarEvento(eventoConFrecuenciaUnica);
-		withTransaction(() -> {RepositorioDeUsuarios.getInstance().agregar(juan);});
+		withTransaction(() -> {
+				RepositorioDeUsuarios.getInstance().agregar(juan);
+			}
+		);
 		
 		JobsUsuarios job = new JobsUsuarios();
 		job.setFechaTest(LocalDateTime.of(
@@ -92,14 +95,5 @@ public class Evento2Test extends AbstractPersistenceTest implements WithGlobalEn
 		
 		assertTrue(giorno.getSugerencias().size()==1);
 	}
-/*
- * 
- 		LocalDateTime fecha = LocalDateTime.of(
-				LocalDate.of(2019, Month.DECEMBER, 3),
-				LocalTime.now());
-		juan.eventosProximos(fecha).stream().forEach(evento -> {
-			evento.sugerir(juan);
-			juan.notificarSugerenciasNuevas();
-		});
- */
+
 }

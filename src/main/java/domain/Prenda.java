@@ -35,6 +35,14 @@ public class Prenda extends SuperClase{
 	public Prenda() {}
 	// ------------------ Getters, setters y constructores ------------------
 	
+	public String prenda() {
+		if(this.getColorSecundario()==null)
+			return this.getTipo().tipo+" de "+this.getTela().toString() +" de color "+this.getColorPrimario().toString();
+		else
+			return this.getTipo().tipo+" de "+this.getTela().toString() +" de color "+this.getColorPrimario()+" y "+this.getColorSecundario().toString();
+
+	}
+	
 	public Color getColorPrimario() {
 		return colorPrimario;
 	}
@@ -75,12 +83,8 @@ public class Prenda extends SuperClase{
 		return foto;
 	}
 
-	public void setNivelAbrigo(int nivelAbrigo) {
-		this.nivelAbrigo = nivelAbrigo;
-	}
-	
 	public int getNivelAbrigo() {
-		return nivelAbrigo;
+		return this.tipo.nivelDeFrio;
 	}
 	
 	public void setUsada(boolean usada) {

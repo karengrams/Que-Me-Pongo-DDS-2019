@@ -37,7 +37,7 @@ public class GuardarropasController {
 	public ModelAndView pru(Request req, Response res) {
 		Map<String,Object> viewModel = new HashMap<String, Object>();
 		RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-		Usuario usuarie = repo.buscarPorNombre("juan");
+		Usuario usuarie = repo.buscarPorNombre(req.cookie("nombreUsuario"));
 		List<Guardarropa> listaGuard = usuarie.getGuardarropas().stream().collect(Collectors.toList());
 
 		viewModel.put("guardarropas", listaGuard);

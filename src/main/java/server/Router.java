@@ -41,8 +41,8 @@ public class Router {
 		Spark.get("/guardarropas/show", guardarropasController::show,engine);
 		Spark.get("/sugerencias/aceptadas", sugerenciasController::verSugerenciasAceptadas, engine);
 		Spark.post("/sugerencias/aceptadas", sugerenciasController::elegirSugerenciaAceptada, engine);
-		Spark.get("/sugerencias/aceptadas/:coord/calificar", sugerenciasController::verCalificarSugerencias, engine);
-		Spark.post("/sugerencias/aceptadas/:coord/calificar", sugerenciasController::calificarSugerencias, engine);
+		Spark.get("/sugerencias/aceptadas/:id/calificar", sugerenciasController::verCalificarSugerencias, engine);
+		Spark.post("/sugerencias/aceptadas/:id/calificar", sugerenciasController::calificarSugerencias, engine);
 		Spark.get("/eventos/nuevo", eventoController::mostrarAltaDeEvento, engine);
 		Spark.post("/eventos/nuevo", eventoController::elegirDescripcionYFrecuencia, engine);
 		Spark.get("/eventos/nuevo/horarios", eventoController::mostrarOpcionesDeFrecuencia, engine);
@@ -53,18 +53,14 @@ public class Router {
 		Spark.post("/eventos", calendarioController::verSugerencia);
 		Spark.get("/eventos/:id/sugerencias/pendientes", sugerenciasPendientesController::verSugerencias);
 		Spark.post("/eventos/:id/sugerencias/pendientes", sugerenciasPendientesController::confirmarSugerencia);
-		Spark.get("/prendas/eleccionGuardarropa", prendaContoller::prueba,engine);
-		Spark.post("/prendas/eleccionGuardarropa", prendaContoller::pruebaPost,engine);
-		Spark.get("/prendas/cargaDatos", prendaContoller::showCargaDatos,engine);
-//		Spark.post("/prendas/cargaDatos", prendaContoller::saveCargaDatos,engine);
-//		
+		Spark.get("/prenda/nueva", prendaContoller::show,engine);
+		Spark.post("/prenda/nueva/guardarropa", prendaContoller::getWardrobeID);
+		Spark.post("/prenda/nueva/tipo", prendaContoller::getClotheType);
+		Spark.post("/prenda/nueva", prendaContoller::load,engine);
+		Spark.get("/prenda/nueva/verificacion", prendaContoller::confirmation,engine);
 		Spark.get("/guardarropas", guardarropasController::pru,engine);
-		
 		Spark.get("/calendar",cal2Controller::test,engine);
 		Spark.get("/calendar/busqueda",cal2Controller::busquedaPorFecha,engine);
-		
-		Spark.get("/prenda/nueva", prendaContoller::show,engine);
-		Spark.post("/prenda/nueva/caca", prendaContoller::getClotheType);
 		
 		Spark.after((request, response) -> { 
 			   PerThreadEntityManagers.getEntityManager(); 

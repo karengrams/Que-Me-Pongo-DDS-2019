@@ -8,6 +8,7 @@ import java.util.stream.*;
 import domain.SuperClase;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -34,7 +35,7 @@ public class Usuario extends SuperClase{
 	
 	private int maximoDePrendas;
 	
-	@ManyToMany (cascade = CascadeType.PERSIST)
+	@ManyToMany (cascade = CascadeType.PERSIST,fetch=FetchType.EAGER)
 	private Set<Guardarropa> guardarropas = new HashSet<Guardarropa>();
 	
 	@OneToMany (cascade = CascadeType.PERSIST)
@@ -115,11 +116,21 @@ public class Usuario extends SuperClase{
 		return this.eventos.stream().filter(evento->this.atuendosNoSeEncuentranAptosPara(evento)).collect(Collectors.toSet());
 	}
 	
+	public int prendasCreadas(){
+		return this.guardarropas.stream().flatMap(g->g.getPrendas().stream()).collect(Collectors.toList()).size();
+	}
+	
+	public void setMaximoDePrendas(int maximoDePrendas) {
+		this.maximoDePrendas = maximoDePrendas;
+	}
+	
 	// ------------------------------ Metodos -------------------------------
+
+	
 
 	public void validacionSegunTipoUsuario(int cantidadDePrendasDelGuardarropas) {
 		if(tipo == TipoUsuario.GRATUITO && cantidadDePrendasDelGuardarropas >= maximoDePrendas) {
-			throw new SeExcedioElLimiteDeCapacidadDelGuardarropaException("WARNNING: el guardarropa ya contiene el l�mite de su capacidad");
+			throw new SeExcedioElLimiteDeCapacidadDelGuardarropaException("El guardarropa ya contiene el limite de su capacidad.");
 		}
 	}
 	
@@ -137,15 +148,22 @@ public class Usuario extends SuperClase{
 	}
 	
 	public void cargarPrenda(Guardarropa unGuardarropa,Prenda unaPrenda) {
-		if(this.yaSeCargoLaPrenda(unaPrenda)) {
-			throw new YaSeEncuentraCargadaException("WARNING: la prenda ingresada ya se encuentra cargada");
+		if(this.maximoDePrendas<=this.prendasCreadas()){
+			throw new MaximoDePrendasAlcanzadoException("No se puede cargar la prenda dado que se ha alcanzado el maximo permitido.");
 		}
-		this.validacionSegunTipoUsuario(unGuardarropa.prendas().size());		
+		if(this.yaSeCargoLaPrenda(unaPrenda)) {
+			throw new YaSeEncuentraCargadaException("La prenda ingresada ya se encuentra cargada.");
+		}
+		if(unGuardarropa==null || unaPrenda ==null) {
+			throw new TieneParametrosNulosException("La creacion de la prenda requiere parametros no nulos.");
+		}
+	
+		this.validacionSegunTipoUsuario(unGuardarropa.getPrendas().size());		
 		unGuardarropa.cargarPrenda(unaPrenda);
 	}
 
 	public boolean yaSeCargoLaPrenda(Prenda unaPrenda) {
-		return guardarropas.stream().anyMatch(guardarropa->guardarropa.prendas().contains(unaPrenda));
+		return guardarropas.stream().anyMatch(guardarropa->guardarropa.getPrendas().contains(unaPrenda));
 	}
 		
 	public void agregarSugerencia(Sugerencia sugerenciaNueva){
@@ -154,7 +172,7 @@ public class Usuario extends SuperClase{
 	
 	public void clasificarUnaSugerencia(Sugerencia sugerencia, TipoSugerencias tipo) {
 		if (!sugerencias.contains(sugerencia)){
-			throw new NoPoseeLaSugerenciaException("WARNING: No posee la sugerencia que se esta intentando clasificar");
+			throw new NoPoseeLaSugerenciaException("No posee la sugerencia que se esta intentando clasificar.");
 		}
 		if(tipo.equals(TipoSugerencias.ACEPTADA)) {
 			sugerencia.getAtuendo().forEach(prenda -> prenda.setUsada(true));
@@ -198,11 +216,15 @@ public class Usuario extends SuperClase{
 
 	public void validarContrasenia(String contra) {
 		if (!contra.equals(this.password))
-			throw new NoPoseeLaSugerenciaException("Error, contraseña incorrecta!");
+			throw new NoPoseeLaSugerenciaException("¡Contraseña incorrecta!");
 	}
 	
 	public Guardarropa buscarGuardarropa(int id) {
-		return this.getGuardarropas().stream().filter(g->g.getId()==id).collect(Collectors.toList()).get(0);
+		try {
+			return this.getGuardarropas().stream().filter(g->g.getId()==id).collect(Collectors.toList()).get(0);
+		}catch(Exception e) {
+			throw new TieneParametrosNulosException("Se debe ingresar un guardarropas correcto.");
+		}
 	}
 	
 }

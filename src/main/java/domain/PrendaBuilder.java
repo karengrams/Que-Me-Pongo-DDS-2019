@@ -16,7 +16,7 @@ public class PrendaBuilder{
 
 	public Prenda crearPrenda(){
 		if(this.tieneAlgunParametroNulo()) {
-			throw new TieneParametrosNulosException("WARNING: no se pudo crear la prenda ya que tiene parametros sin instanciar.");
+			throw new TieneParametrosNulosException("No se pudo crear la prenda ya que tiene parametros sin instanciar.");
 		}
 		return prenda;
 	}
@@ -38,10 +38,10 @@ public class PrendaBuilder{
 	
 	public PrendaBuilder conTela(Material tela){
 		if(prenda.getTipo() == null) {
-			throw new TieneParametrosNulosException("WARNING: debe definir primero el tipo.");
+			throw new TieneParametrosNulosException("Debe definir primero el tipo.");
 		}
 		if(!prenda.getTipo().materialesPermitidos.contains(tela)) {
-			throw new MaterialNoPermitidoException("WARNING: el material " + tela + " no es valido para el tipo de prenda ingresado.");
+			throw new MaterialNoPermitidoException("El material " + tela + " no es valido para el tipo de prenda ingresado.");
 		}
 		this.prenda.setTela(tela);
 		return this;
@@ -51,14 +51,9 @@ public class PrendaBuilder{
 		prenda.setFoto(foto);
 		return this;
 	}
-
-	public PrendaBuilder conAbrigo(int nivelAbrigo) {
-		prenda.setNivelAbrigo(nivelAbrigo);
-		return this;
-	}
 	
 	public boolean tieneAlgunParametroNulo(){ //HAY QUE MODIFICAR Y AGREGAR LA BASE Y ABRIGO ACA
-		List parametros = new ArrayList(Arrays.asList(prenda.getTela(),prenda.getColorPrimario(),prenda.getTipo(),prenda.getNivelAbrigo()));
+		List parametros = new ArrayList(Arrays.asList(prenda.getTela(),prenda.getColorPrimario(),prenda.getTipo()));
 		return parametros.stream().anyMatch(parametro -> parametro == null);
 	}
 

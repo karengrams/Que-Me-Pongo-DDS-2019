@@ -40,64 +40,54 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class SugerenciasController extends AbstractPersistenceTest implements WithGlobalEntityManager{
 	List<Sugerencia> listaSugerenciaAceptadas;
-	List<Calificacion> listaCalificaciones;
 	
 	public ModelAndView verSugerenciasAceptadas(Request req, Response res) {
 		Map<String, Object> viewModel = new HashMap();
 		
-		RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-		Usuario usuarie = repo.buscarPorNombre(req.cookie("nombreUsuario"));
+		Usuario usuarie = RepositorioDeUsuarios.getInstance()
+				.buscarPorNombre(req.cookie("nombreUsuario"));
 		
-		Usuario usuario = new Usuario(TipoUsuario.PREMIUM, 100, "pepe", "1234");
-		List<Sugerencia> listaSugerencia = usuario.getSugerencias();
+		List<Sugerencia> listaSugerencia = usuarie.getSugerencias();
+//		casoDeEjemplo(usuarie);
 		
-		Sugerencia sugerenciaPosta = generarSugerencia();
-		Sugerencia sugerenciaPosta2 = generarSugerencia2();
-		sugerenciaPosta.setEstado(TipoSugerencias.ACEPTADA);
-		listaSugerencia.add(sugerenciaPosta2);
-		listaSugerencia.add(sugerenciaPosta);
-		
-		listaCalificaciones = usuario.getCalificaciones();
-		
-		Boolean haySugerenciaAceptada = listaSugerencia.stream().anyMatch(sugerencia -> sugerencia.aceptada());
+		Boolean haySugerenciaAceptada = listaSugerencia.stream()
+				.anyMatch(sugerencia -> sugerencia.aceptada());
 		viewModel.put("haySugerenciaAceptada", haySugerenciaAceptada);
-		listaSugerenciaAceptadas = listaSugerencia.stream().filter(sugerencia -> sugerencia.aceptada()).collect(Collectors.toList());
+		listaSugerenciaAceptadas = listaSugerencia.stream()
+				.filter(sugerencia -> sugerencia.aceptada()).collect(Collectors.toList());
 		viewModel.put("sugerencias", listaSugerenciaAceptadas);
 		return new ModelAndView(viewModel, "verSugerenciasAceptadas.hbs");
 	}
 	
 	public ModelAndView elegirSugerenciaAceptada(Request req, Response res) {
-		String coord = req.queryParams("nroSugerencia");
+		String id = req.queryParams("nroSugerencia");
 		try {
-			listaSugerenciaAceptadas.remove(Integer.parseInt(coord));
+			listaSugerenciaAceptadas.remove(Integer.parseInt(id));
 		}catch(Exception e) {
 			res.redirect("/sugerencias/aceptadas");
 		}
-//		req.session().attribute("coord", coord);
-		res.redirect("/sugerencias/aceptadas/"+ coord +"/calificar");
+		res.redirect("/sugerencias/aceptadas/"+ id +"/calificar");
 		return null;
 	}
 	
 	public ModelAndView verCalificarSugerencias(Request req, Response res) {
-		String coord = req.params("coord");
+		String id = req.params("id");
 		Map<String, Object> viewModel = new HashMap();
-		viewModel.put("coord", coord);
+		viewModel.put("id", id);
 		return new ModelAndView(viewModel, "calificarSugerencias.hbs");
 	}
 	
 	public ModelAndView calificarSugerencias(Request req, Response res) {
-		String coord = req.params("coord");
-		try {
-			EntityManager em = entityManager();
-			em.getTransaction().begin();
-				listaCalificaciones.add(this.armarCalificacion("Superior", req));
-				listaCalificaciones.add(this.armarCalificacion("Calzado", req));
-				listaCalificaciones.add(this.armarCalificacion("Inferior", req));
-				listaCalificaciones.add(this.armarCalificacion("Accesorio", req));
-			em.getTransaction().commit();
-		}catch(Exception e) {
-			res.redirect("/sugerencias/aceptadas/"+coord+"/calificar");
-		}
+		String id = req.params("id");
+		withTransaction(()->{
+			Usuario usuarie = RepositorioDeUsuarios.getInstance()
+					.buscarPorNombre(req.cookie("nombreUsuario"));
+			List<Calificacion> listaCalificaciones = usuarie.getCalificaciones();
+			listaCalificaciones.add(this.armarCalificacion("Superior", req));
+			listaCalificaciones.add(this.armarCalificacion("Calzado", req));
+			listaCalificaciones.add(this.armarCalificacion("Inferior", req));
+			listaCalificaciones.add(this.armarCalificacion("Accesorio", req));
+		});
 		res.redirect("/perfil");
 		return null;
 	}
@@ -118,11 +108,11 @@ public class SugerenciasController extends AbstractPersistenceTest implements Wi
 	
 	// Hardcodeo esto para probarlo, luego se hace con las sugerencias del usuario que inicia sesion	
 	public Sugerencia generarSugerencia() {
-		Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.Algodon).conColorPrimario(Color.Rojo).conColorSecundario(Color.Amarillo).crearPrenda();
-		Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).crearPrenda();
-		Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.Negro).conTela(Material.Algodon).crearPrenda();
-		Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).crearPrenda();
-		Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaDiaria(1),"Sin descripcion");//Fecha "16-02-2019" -> Es decir, un evento finalizado
+		Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.algodon).conColorPrimario(Color.rojo).conColorSecundario(Color.amarillo).crearPrenda();
+		Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
+		Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.negro).conTela(Material.algodon).crearPrenda();
+		Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+		Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaDiaria(1),"Sin descripcion");
 		
 		Set<Prenda> atuendo = new HashSet<Prenda>();
 		atuendo.add(jean);
@@ -130,24 +120,24 @@ public class SugerenciasController extends AbstractPersistenceTest implements Wi
 		atuendo.add(gorra);
 		atuendo.add(zapatos);
 		
-		EntityManager em = entityManager();
-		em.getTransaction().begin();
-		em.persist(eventoConFrecuenciaUnica);
-		em.persist(camisaCorta);
-		em.persist(zapatos);
-		em.persist(gorra);
-		em.persist(jean);
-		em.getTransaction().commit();
+//		EntityManager em = entityManager();
+//		em.getTransaction().begin();
+		entityManager().persist(eventoConFrecuenciaUnica);
+		entityManager().persist(camisaCorta);
+		entityManager().persist(zapatos);
+		entityManager().persist(gorra);
+		entityManager().persist(jean);
+//		em.getTransaction().commit();
 		
 		return new Sugerencia(atuendo,eventoConFrecuenciaUnica);
 	}
 	
 	public Sugerencia generarSugerencia2() {
-		Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.Algodon).conColorPrimario(Color.Rojo).conColorSecundario(Color.Amarillo).crearPrenda();
-		Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).crearPrenda();
-		Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.Negro).conTela(Material.Algodon).crearPrenda();
-		Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).crearPrenda();
-		Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaDiaria(1),"Hola!!");//Fecha "16-02-2019" -> Es decir, un evento finalizado
+		Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.algodon).conColorPrimario(Color.rojo).conColorSecundario(Color.amarillo).crearPrenda();
+		Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
+		Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.negro).conTela(Material.algodon).crearPrenda();
+		Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+		Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaDiaria(1),"Hola!!");
 		
 		Set<Prenda> atuendo = new HashSet<Prenda>();
 		atuendo.add(jean);
@@ -155,15 +145,29 @@ public class SugerenciasController extends AbstractPersistenceTest implements Wi
 		atuendo.add(gorra);
 		atuendo.add(zapatos);
 		
-		EntityManager em = entityManager();
-		em.getTransaction().begin();
-		em.persist(eventoConFrecuenciaUnica);
-		em.persist(camisaCorta);
-		em.persist(zapatos);
-		em.persist(gorra);
-		em.persist(jean);
-		em.getTransaction().commit();
+//		EntityManager em = entityManager();
+//		em.getTransaction().begin();
+		entityManager().persist(eventoConFrecuenciaUnica);
+		entityManager().persist(camisaCorta);
+		entityManager().persist(zapatos);
+		entityManager().persist(gorra);
+		entityManager().persist(jean);
+//		em.getTransaction().commit();
 		
 		return new Sugerencia(atuendo,eventoConFrecuenciaUnica);
+	}
+	
+	private void casoDeEjemplo(Usuario usuarie) {
+		withTransaction(()->{
+			Sugerencia sugerenciaPosta = generarSugerencia();
+			Sugerencia sugerenciaPosta2 = generarSugerencia2();
+			sugerenciaPosta.setEstado(TipoSugerencias.ACEPTADA);
+			usuarie.getSugerencias().add(sugerenciaPosta2);
+			usuarie.getSugerencias().add(sugerenciaPosta);
+			
+//			EntityManager em = entityManager();
+			entityManager().persist(sugerenciaPosta);
+			entityManager().persist(sugerenciaPosta2);
+		});
 	}
 }

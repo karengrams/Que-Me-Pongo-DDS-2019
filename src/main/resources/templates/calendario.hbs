@@ -1,12 +1,14 @@
 {{#partial "otherHead"}}
-<link rel="stylesheet" type="text/css" href="/login.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/calendario.css" media="screen" />
 {{/partial}}
 
 {{#partial "contenido"}}
+	</div>
+	<div class= "cuerpo">
 	<div class=calendario>
 		<h1>¡Calendario! 📅</h1>
 	</div>
-	</div>
+	
 	<div>
 		<form class="profile-form" action="/eventos" method="GET">
 		<div class="col-6">
@@ -67,6 +69,7 @@
 			
 			
 		</ul>
+	</div>
 	</div>
 {{/partial}}
 {{>layout.hbs}}

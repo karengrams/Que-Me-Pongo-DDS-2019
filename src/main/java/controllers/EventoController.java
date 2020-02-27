@@ -33,7 +33,6 @@ import tiempo.checkboxes.UnicaVezCheckbox;
 
 public class EventoController  extends AbstractPersistenceTest implements WithGlobalEntityManager{
 	
-	Tiempo fecha = null;
 	boolean todoOk = false;
 
 	public ModelAndView mostrarAltaDeEvento(Request req, Response res) {
@@ -46,8 +45,10 @@ public class EventoController  extends AbstractPersistenceTest implements WithGl
 		String descripcion = req.queryParams("Descripcion");
 		String frecuencia = req.queryParams("Frecuencia");
 		
-		fecha = this.obtenerFecha(frecuencia);
+		Tiempo fecha = this.obtenerFecha(frecuencia);
 		res.cookie("Descripcion", descripcion);
+		
+		req.session().attribute("fecha", fecha);
 		
 		res.redirect("/eventos/nuevo/horarios");
 		return null;
@@ -55,6 +56,8 @@ public class EventoController  extends AbstractPersistenceTest implements WithGl
 	
 	public ModelAndView mostrarOpcionesDeFrecuencia(Request req, Response res) {
 		HashMap<String, Object> viewModel = new HashMap();
+		
+		Tiempo fecha = req.session().attribute("fecha");
 		
 		viewModel.put(fecha.esPeriodico(), true);
 		
@@ -65,6 +68,7 @@ public class EventoController  extends AbstractPersistenceTest implements WithGl
 		HashMap<String, Object> viewModel = new HashMap();
 		
 		String descripcion = req.cookie("Descripcion");
+		Tiempo fecha = req.session().attribute("fecha");
 		
 		if(fecha.datosIngresadosCorrectamente(req)) {
 			FrecuenciaDeEvento frecuenciaDeEvento = fecha.obtenerFrecuencia();
@@ -97,7 +101,8 @@ public class EventoController  extends AbstractPersistenceTest implements WithGl
 		elemTiempo.add(new SemanaCheckbox());
 		elemTiempo.add(new MesCheckbox());
 		elemTiempo.add(new UnicaVezCheckbox());
-		elemTiempo = elemTiempo.stream().filter(tiempo -> tiempo.verificarTiempo(frecuencia)).collect(Collectors.toList());
+		elemTiempo = elemTiempo.stream()
+				.filter(tiempo -> tiempo.verificarTiempo(frecuencia)).collect(Collectors.toList());
 		
 		return elemTiempo.get(0);
 	}
@@ -107,17 +112,11 @@ public class EventoController  extends AbstractPersistenceTest implements WithGl
 	}
 
 	public void cargarEvento(Evento evento, Request req) {
-		EventoController eventoController = new EventoController();
-		
-		RepositorioDeUsuarios repo = RepositorioDeUsuarios.getInstance();
-		Usuario usuarie = repo.buscarPorNombre(req.cookie("nombreUsuario"));
-		usuarie.agendarEvento(evento);
-		
-		
-		EntityManager em = entityManager();
-		em.getTransaction().begin();
-		em.persist(evento);
-		em.getTransaction().commit();
+		withTransaction(()->{
+			Usuario usuarie = RepositorioDeUsuarios.getInstance()
+					.buscarPorNombre(req.cookie("nombreUsuario"));
+			usuarie.agendarEvento(evento);
+		});
 	}
 	
 }

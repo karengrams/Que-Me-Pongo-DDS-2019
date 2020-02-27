@@ -14,24 +14,30 @@
 		<class>domain.Usuario</class>
 		<class>domain.Calificacion</class>
 		<class>domain.Sugerencia</class>
-	 	<class>domain.Foto</class> 
+	 	<class>domain.Foto</class>
 		<class>domain.frecuenciasDeEventos.FrecuenciaAnual</class>
 		<class>domain.frecuenciasDeEventos.FrecuenciaDiaria</class>
 		<class>domain.frecuenciasDeEventos.FrecuenciaUnicaVez</class>
 		<class>domain.frecuenciasDeEventos.FrecuenciaSemanal</class>
 		<class>domain.frecuenciasDeEventos.FrecuenciaMensual</class>
 		<class>domain.MedioDeNotificacion</class>
-		
+
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
+<!--
+  			<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db"/>
+             <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value=""/>
+             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+-->
 
-  	 		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mi_base_de_datos" /> 
-            <property name="hibernate.connection.username" value="root" /> 
-            <property name="hibernate.connection.password" value="" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mi_base_de_datos" />
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
@@ -39,6 +45,4 @@
         </properties>
     </persistence-unit>
 
-</persistence> 
- 
- 
+</persistence>

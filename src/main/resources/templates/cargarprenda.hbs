@@ -1,169 +1,174 @@
-{{#partial "otherHead"}}
-<link rel="stylesheet" type="text/css" href="/login.css" media="screen" />
-{{/partial}}
+  {{#partial "otherHead"}}
 
-{{#partial "contenido"}}
-<html>
-</div>
-  <h1>Creacion de prenda</h1>
-<div>
-  — Seleccione el guardarropas donde quiere almacenar:
-  <select name="guardarropa">
-    <option value="" selected disabled hidden>Sin seleccionar</option>
-    {{#each guardarropas}}
-    <option value="{{id}}">{{id}}</option>
-    {{/each}}
-   </select>
- </div>
+  {{/partial}}
 
-<div>
-    — Seleccione un tipo de prenda:
-    <select name="tipoPrenda" id="tipoPrenda" onchange="get_clothe_type()">
-      <option value="" selected disabled hidden>Sin seleccionar</option>
-       <option value="Remera">Remera</option>
-       <option value="RemeraMangaCorta">Remera manga corta</option>
-       <option value="RemeraMangaLarga">Remera manga larga</option>
-       <option value="CamisaMangaCorta">Camisa manga corta</option>
-       <option value="CamisaMangaLarga">Camisa manga larga</option>
-       <option value="Pantalon">Pantalon</option>
-       <option value="Short">Short</option>
-       <option value="PolleraCorta">Pollera corta</option>
-       <option value="PolleraLarga">Pollera larga</option>
-       <option value="Bermuda">Bermuda</option>
-       <option value="Calza">Calza</option>
-       <option value="Jardinero">Jardinero</option>
-       <option value="Zapatos">Zapatos</option>
-       <option value="Ojotas">Ojotas</option>
-       <option value="Botas">Botas</option>
-       <option value="Zapatillas">Zapatillas</option>
-       <option value="Borcegos">Borcegos</option>
-       <option value="Gorro">Gorro</option>
-       <option value="Gorra">Gorra</option>
-       <option value="Sombrero">Sombrero</option>
-       <option value="Tapado">Tapado</option>
-       <option value="Buzo">Buzo</option>
-       <option value="Campera">Campera</option>
-     </select>
-</div>
+  {{#partial "contenido"}}
+  <html>
 
-<div>
-  — Seleccione un color primario:
-  <select name="colorPrimario" required>
-    <option value="" selected disabled hidden>Sin seleccionar</option>
-     <option value=Rojo>Rojo</option>
-     <option value=Amarillo>Amarillo</option>
-     <option value=Verde>Verde</option>
-     <option value=Naranja>Naranja</option>
-     <option value=Azul>Azul</option>
-     <option value=Violeta>Violeta</option>
-     <option value=Rosa>Rosa</option>
-     <option value=Lila>Lila</option>
-     <option value=Fucsia>Fucsia</option>
-     <option value=Mostaza>Mostaza</option>
-     <option value=Turquesa>Turquesa</option>
-     <option value=Ocre>Ocre</option>
-     <option value=Magenta>Magenta</option>
-     <option value=Gris>Gris</option>
-     <option value=Negro>Negro</option>
-     <option value=Blanco>Blanco</option>
-     <option value=Beige>Beige</option>
-     <option value=Salmon>Salmon</option>
-     <option value=Granate>Granate</option>
-     <option value=Lavanda>Lavanda</option>
-     <option value=Malva>Malva</option>
-     <option value=Purpura>Purpura</option>
-     <option value=Ciruela>Ciruela</option>
-     <option value=Melocoton>Melocoton</option>
-   </select>
- </div>
+  <style>
 
- <div>
-   — Seleccione un color secundario:
-   <select name="colorSecundario">
-     <option value="" selected disabled hidden>Sin seleccionar</option>
-      <option value=Rojo>Rojo</option>
-      <option value=Amarillo>Amarillo</option>
-      <option value=Verde>Verde</option>
-      <option value=Naranja>Naranja</option>
-      <option value=Azul>Azul</option>
-      <option value=Violeta>Violeta</option>
-      <option value=Rosa>Rosa</option>
-      <option value=Lila>Lila</option>
-      <option value=Fucsia>Fucsia</option>
-      <option value=Mostaza>Mostaza</option>
-      <option value=Turquesa>Turquesa</option>
-      <option value=Ocre>Ocre</option>
-      <option value=Magenta>Magenta</option>
-      <option value=Gris>Gris</option>
-      <option value=Negro>Negro</option>
-      <option value=Blanco>Blanco</option>
-      <option value=Beige>Beige</option>
-      <option value=Salmon>Salmon</option>
-      <option value=Granate>Granate</option>
-      <option value=Lavanda>Lavanda</option>
-      <option value=Malva>Malva</option>
-      <option value=Purpura>Purpura</option>
-      <option value=Ciruela>Ciruela</option>
-      <option value=Melocoton>Melocoton</option>
-    </select>
+  div.wardrobe-clothes{
+    margin-top:10px;
+    margin-bottom:10px;
+    padding: 20px;
+    background-color: rgba(213, 213, 213, 0.5);
+  }
+
+  .clothe-list{
+    column-count: 2;
+  }
+
+  div.form {
+    line-height: 2.5;
+    margin-left: 30px;
+    margin-right: 30px;
+    opacity: 1;
+  }
+  </style>
+
+
   </div>
+    <h1 align="center">Creacion de prenda</h1>
 
-  <div>
-    — Seleccione tipo de material
-    <select name="tela">
-      <option value="" selected disabled hidden>Sin seleccionar</option>
-      <option value="Algodon">Algodon</option>
-  		<option value="Lycra">Lycra</option>
-  		<option value="Lino">Lino</option>
-  		<option value="Franela">Franela</option>
-  		<option value="Lana">Lana</option>
-  		<option value="Cuero">Cuero</option>
-  		<option value="Microfibra">Microfibra</option>
-  		<option value="Seda">Seda</option>
-  		<option value="Jean">Jean</option>
-  		<option value="Chiffon">Chiffon</option>
-  		<option value="Spandex">Spandex</option>
-  		<option value="Saten">Saten</option>
-  		<option value="Lanilla">Lanilla</option>
-  		<option value="Poliester">Poliester</option>
-  		<option value="Gamuza">Gamuza</option>
-  		<option value="Polar">Polar</option>
-  		<option value="Mezclilla">Mezclilla</option>
-  		<option value="Nylon">Nylon</option>
-  		<option value="Caucho">Caucho</option>
-  		<option value="Modal">Modal</option>
-  		<option value="Lona">Lona</option>
-  		<option value="Rayon">Rayon</option>
-  		<option value="Gabardina">Gabardina</option>
-     </select>
-   </div>
+  <div class="form">
+    <form class="clothe-form" action="/prenda/nueva" method="POST">
 
-   <p id="demo"></p>
+      <div class="wadrobe-select">
+        — Seleccione el guardarropas donde quiere almacenar:
+        <select name="guardarropa" id="guardarropa" onchange="get_wardrobe()" required>
+          <option value="" selected disabled hidden>sin seleccionar</option>
+          {{#each guardarropas}}
+          <option value="{{id}}">{{id}}</option>
+          {{/each}}
+         </select>
+         <div class="wardrobe-clothes">
+           Las prendas que contiene el guardarropa selecionado son:
+           <ul class="clothe-list" id="clothe-list">
+            </ul>
+          </div>
+       </div>
 
-{{/partial}}
-{{>layout.hbs}}
+      <div class="clothe-type-select">
+          — Seleccione un tipo de prenda:
+          <select name="tipoPrenda" id="tipoPrenda" onchange="get_clothe_type()" required>
+            <option value="" selected disabled hidden>sin seleccionar</option>
+             <option value="Remera">remera</option>
+             <option value="RemeraMangaCorta">remera manga corta</option>
+             <option value="RemeraMangaLarga">remera manga larga</option>
+             <option value="CamisaMangaCorta">camisa manga corta</option>
+             <option value="CamisaMangaLarga">camisa manga larga</option>
+             <option value="Pantalon">pantalon</option>
+             <option value="Short">short</option>
+             <option value="PolleraCorta">pollera corta</option>
+             <option value="PolleraLarga">pollera larga</option>
+             <option value="Bermuda">bermuda</option>
+             <option value="Calza">calza</option>
+             <option value="Jardinero">jardinero</option>
+             <option value="Zapatos">zapatos</option>
+             <option value="Ojotas">ojotas</option>
+             <option value="Botas">botas</option>
+             <option value="Zapatillas">zapatillas</option>
+             <option value="Borcegos">borcegos</option>
+             <option value="Gorro">gorro</option>
+             <option value="Gorra">gorra</option>
+             <option value="Sombrero">sombrero</option>
+             <option value="Tapado">tapado</option>
+             <option value="Buzo">buzo</option>
+             <option value="Campera">campera</option>
+           </select>
+      </div>
+
+      <div class="principal-color-select">
+        — Seleccione un color primario:
+        <select name="colorPrimario" required>
+          <option value="" selected disabled hidden>sin seleccionar</option>
+          {{#each colores}}
+            <option value={{this}}>{{this}}</option>
+          {{/each}}
+         </select>
+       </div>
+
+       <div class="optional-color-select">
+         — Seleccione un color secundario:
+         <select name="colorSecundario">
+           <option value="" selected disabled hidden>sin seleccionar</option>
+           {{#each colores}}
+             <option value={{this}}>{{this}}</option>
+           {{/each}}
+
+          </select>
+        </div>
+
+        <div class="material-select">
+          — Seleccione tipo de material
+          <select name="tela" id="tela" required>
+            <option value="" selected disabled hidden>sin seleccionar</option>
+           </select>
+         </div>
+          <div class="create-btn">
+            <button>Crear</button>
+          </div>
+      </form>
+    </div>
+  {{/partial}}
+  {{>layout.hbs}}
+
+  <script>
+
+  var close = document.getElementById("closebtn");
+
+  close.onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+
+  function get_wardrobe() {
+    var selectedOption = document.getElementById("guardarropa").value;
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.open("POST", "/prenda/nueva/guardarropa?guardarropa=" + selectedOption, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange=function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var list = document.getElementById("clothe-list");
+        list.innerText = null;
+        var prendas = JSON.parse(this.responseText);
+        for(var i = 0; i < prendas.length; i++) {
+          var list_element = document.createElement("LI");
+    		  var prenda = document.createTextNode(prendas[i]);
+    		  list_element.appendChild(prenda);
+    		  list.appendChild(list_element);
+        }
+      }
+    };
+
+  }
 
 
-<script>
+  function get_clothe_type(){
+    var select = document.getElementById("tela");
+    var selectedOption = document.getElementById("tipoPrenda").value;
+    var xhttp = new XMLHttpRequest();
 
-// document.getElementById("tipoPrenda").addEventListener("click", get_clothe_type());
+    xhttp.open("POST", "/prenda/nueva/tipo?tipoPrenda=" + selectedOption, true);
+    xhttp.send();
 
-function get_clothe_type() {
+    xhttp.onreadystatechange=function() {
+      if (this.readyState == 4 && this.status == 200) {
+        select.innerText = null;
+        var telas = JSON.parse(this.responseText);
+        for(var i = 0; i < telas.length; i++) {
+          var opt = document.createElement('option');
+          opt.innerHTML = telas[i];
+          opt.value = telas[i];
+          select.appendChild(opt);
+        }
+      }
+    };
+  }
 
-  var selectedOption = document.getElementById("tipoPrenda").value;
-  var xhttp = new XMLHttpRequest();
+  </script>
 
-  xhttp.onreadystatechange=function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = this.responseText;
-    }
-  };
-
-  xhttp.open("POST", "/prenda/nueva/caca?tipoPrenda=" + selectedOption, true);
-  xhttp.send();
-  document.getElementById("demo").innerHTML = selectedOption;
-}
-
-</script>
-
-</html>
+  </html>

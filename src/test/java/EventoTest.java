@@ -11,18 +11,18 @@ import java.time.*;
 
 public class EventoTest {
 	ProveedorClima APIDeMentiritas = new MockAPI(21,23,false);
-	Usuario juan = new Usuario(TipoUsuario.PREMIUM,15,"juan32","123");
+	Usuario juan = new Usuario(TipoUsuario.PREMIUM,150,"juan32","123");
 	Guardarropa armario = new Guardarropa();
-	Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.Algodon).conColorPrimario(Color.Rojo).conColorSecundario(Color.Amarillo).crearPrenda();
-	Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).crearPrenda();
-	Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.Negro).conTela(Material.Algodon).crearPrenda();
-	Prenda camisaLarga = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaLarga).conColorPrimario(Color.Blanco).conTela(Material.Saten).crearPrenda();
-	Prenda ojotas = new PrendaBuilder().conTipo(TipoPrenda.Ojotas).conTela(Material.Caucho).conColorPrimario(Color.Negro).crearPrenda();
-	Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).crearPrenda();
-	Prenda camperaGucci = new PrendaBuilder().conTipo(TipoPrenda.Campera).conTela(Material.Algodon).conColorPrimario(Color.Negro).conAbrigo(2).crearPrenda();
-	Prenda botas = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.Cuero).conColorPrimario(Color.Amarillo).conAbrigo(3).crearPrenda();
-	Prenda pantalonAbrigo = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).conAbrigo(3).crearPrenda();
-	Prenda buzo =  new PrendaBuilder().conTipo(TipoPrenda.Buzo).conTela(Material.Algodon).conColorPrimario(Color.Rosa).conColorSecundario(Color.Amarillo).conAbrigo(2).crearPrenda();
+	Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.algodon).conColorPrimario(Color.rojo).conColorSecundario(Color.amarillo).crearPrenda();
+	Prenda zapatos = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
+	Prenda gorra= new PrendaBuilder().conTipo(TipoPrenda.Gorra).conColorPrimario(Color.negro).conTela(Material.algodon).crearPrenda();
+	Prenda camisaLarga = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaLarga).conColorPrimario(Color.blanco).conTela(Material.saten).crearPrenda();
+	Prenda ojotas = new PrendaBuilder().conTipo(TipoPrenda.Ojotas).conTela(Material.caucho).conColorPrimario(Color.negro).crearPrenda();
+	Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+	Prenda camperaGucci = new PrendaBuilder().conTipo(TipoPrenda.Campera).conTela(Material.algodon).conColorPrimario(Color.negro).crearPrenda();
+	Prenda botas = new PrendaBuilder().conTipo(TipoPrenda.Zapatos).conTela(Material.cuero).conColorPrimario(Color.amarillo).crearPrenda();
+	Prenda pantalonAbrigo = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+	Prenda buzo =  new PrendaBuilder().conTipo(TipoPrenda.Buzo).conTela(Material.algodon).conColorPrimario(Color.rosa).conColorSecundario(Color.amarillo).crearPrenda();
 	Evento eventoLoco = new Evento(new FrecuenciaUnicaVez(2019,2,16),"Sin descripcion");//la fecha es:"16-02-2019"
 	Evento eventoConFrecuenciaUnica = new Evento(new FrecuenciaUnicaVez(2019,5,24),"Sin descripcion");//"24-05-2019"
 	Evento eventoConFrecuenciaDiaria = new Evento(new FrecuenciaDiaria(0),"Sin descripcion");//"16-01-2019"
@@ -39,6 +39,10 @@ public class EventoTest {
 		juan.cargarPrenda(armario, camisaLarga);
 		juan.cargarPrenda(armario, ojotas);
 		juan.cargarPrenda(armario, jean);
+		juan.cargarPrenda(armario, buzo);
+		juan.cargarPrenda(armario, botas);
+		juan.cargarPrenda(armario, camperaGucci);
+		juan.cargarPrenda(armario, pantalonAbrigo);
 		Sugeridor.getInstance().setProveedorDeClima(APIDeMentiritas);
 	}
 	@After
@@ -58,12 +62,6 @@ public class EventoTest {
 						LocalTime.now())
 				)
 		);
-	}
-	
-	@Test 
-	public void siUnEventoPideSugerenciasParaJuanElMismoTendra12Sugerencias(){
-		eventoLoco.sugerir(juan);
-		assertEquals(juan.getSugerencias().size(),12); //Revisar esto que me parece raro
 	}
 	
 	@Test 

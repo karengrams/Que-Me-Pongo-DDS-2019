@@ -36,6 +36,9 @@ public class CalendarioController implements WithGlobalEntityManager, Transactio
 		res.redirect("/eventos/"+ evento.getId().toString()+"/sugerencias/pendientes");
 		return null;
 	}
+	public LocalDateTime parseameFecha(String fecha) {
+		return LocalDateTime.of( Integer.parseInt(fecha.substring(0,4)), Integer.parseInt(fecha.substring(5,7)), Integer.parseInt(fecha.substring(8,10)), 0, 0);
+	}
 	public String verCalendario(Request req, Response res) {
 		String fecha=req.queryParams("fecha");
 		Boolean hayFecha;
@@ -49,7 +52,24 @@ public class CalendarioController implements WithGlobalEntityManager, Transactio
 		List<Evento>eventoList = null;;
 		List<Evento>eventosNoPendientes = null;
 		List<Evento> eventosPendientes = null;
-		eventoList = hayFecha? calcularEventos(fecha,usuarie):null;
+		
+		if(hayFecha) {
+			eventoList=calcularEventos(parseameFecha(fecha),usuarie);
+			System.out.println(fecha);
+		}else {
+			eventoList=calcularEventos(LocalDateTime.now(),usuarie);
+			fecha = String.valueOf(LocalDateTime.now().getYear())+"-";
+			if(String.valueOf(LocalDateTime.now().getMonthValue()).length()<2) {
+				fecha+="0";
+			}
+			fecha+=String.valueOf(LocalDateTime.now().getMonthValue())+"-";
+			if(String.valueOf(LocalDateTime.now().getDayOfMonth()).length()<2) {
+				fecha+="0";
+			}
+			fecha+=String.valueOf(LocalDateTime.now().getDayOfMonth());
+			System.out.println(fecha);
+		}
+		
 		if(eventoList!=null) {
 			if(!eventoList.isEmpty()) noHayEventos=false;
 			eventosPendientes= tieneSugerenciasPendientes(eventoList,usuarie);
@@ -61,11 +81,11 @@ public class CalendarioController implements WithGlobalEntityManager, Transactio
 			eventosPendientes = null;
 			eventosNoPendientes=null;
 		}
-		
 		HashMap<String, Object> viewModel = new HashMap<>();
 		viewModel.put("eventosPendientes", eventosPendientes);
 		viewModel.put("eventosNoPendientes", eventosNoPendientes);
 		viewModel.put("eventos",eventoList);
+		viewModel.put("fecha",fecha);		
 		viewModel.put("hayFecha", hayFecha);
 		viewModel.put("noHayEventos", noHayEventos);
 		ModelAndView modelAndView = new ModelAndView(viewModel, "calendario.hbs");
@@ -79,12 +99,8 @@ public class CalendarioController implements WithGlobalEntityManager, Transactio
 		return eventos.stream().filter(evento->sugerencias.stream().anyMatch(sugerencia->sugerencia.getEvento().equals(evento)&&sugerencia.getEstado().equals(TipoSugerencias.PENDIENTE))).collect(Collectors.toList());
 	}
 	
-	private List<Evento> calcularEventos(String fechaString,Usuario usuarie){
-		int diaNum = Integer.parseInt(fechaString.substring(8,10));
-		int mesNum = Integer.parseInt(fechaString.substring(5,7));
-		int anioNum = Integer.parseInt(fechaString.substring(0,4));
+	private List<Evento> calcularEventos(LocalDateTime fecha,Usuario usuarie){
 		List<Evento> eventos= new ArrayList<Evento>(usuarie.eventos());
-		LocalDateTime fecha = LocalDateTime.of(anioNum,mesNum,diaNum,0,0,0);
 		//agregarEvento(usuarie);
 		//agregarSugerencia(usuarie);
 		return eventos.stream()
@@ -93,12 +109,12 @@ public class CalendarioController implements WithGlobalEntityManager, Transactio
 	}
 	private static boolean sucedeEnEsteDia(LocalDateTime fecha,Evento evento) {
 		LocalDateTime fechaEvento=evento.cualEsLaFechaProxima(fecha);
-		return fechaEvento.equals(fecha)||(fechaEvento.isAfter(fecha) && fechaEvento.isBefore(fecha.plusDays(1)));
+		return fechaEvento.getYear()== fecha.getYear()&& fechaEvento.getMonth()== fecha.getMonth() && fechaEvento.getDayOfMonth() ==fecha.getDayOfMonth();
 	}
 	//////////////////////////////////////////SETEA_EJEMPLOS///////////////////////////////////////////////////////////////
 	private void agregarEvento(Usuario usuario) {
 		withTransaction(() -> {
-			FrecuenciaUnicaVez frecuencia =new FrecuenciaUnicaVez(2019,5,24);
+			FrecuenciaUnicaVez frecuencia =new FrecuenciaUnicaVez(2020,1,5);
 			Evento evento = new Evento(frecuencia,"Sin descripcion");
 			usuario.agendarEvento(evento);
 			/*entityManager().persist(frecuencia);
@@ -112,8 +128,8 @@ public class CalendarioController implements WithGlobalEntityManager, Transactio
 			Evento evento = new Evento(frecuencia,"TengoUnaSugerencia");
 			Set<Prenda> atuendo = new HashSet<Prenda>();
 			Set<Prenda> atuendo2 = new HashSet<Prenda>();
-			Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.Jean).conColorPrimario(Color.Azul).crearPrenda();
-			Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.Algodon).conColorPrimario(Color.Rojo).conColorSecundario(Color.Amarillo).crearPrenda();
+			Prenda jean = new PrendaBuilder().conTipo(TipoPrenda.Pantalon).conTela(Material.jean).conColorPrimario(Color.azul).crearPrenda();
+			Prenda camisaCorta = new PrendaBuilder().conTipo(TipoPrenda.CamisaMangaCorta).conTela(Material.algodon).conColorPrimario(Color.rojo).conColorSecundario(Color.amarillo).crearPrenda();
 			atuendo.add(jean);
 			atuendo.add(camisaCorta);
 			atuendo2.add(jean);
